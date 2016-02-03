@@ -1,2 +1,3 @@
-django
-selenium
+Django==1.9.2
+selenium==2.50.1
+wheel==0.26.0
