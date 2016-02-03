@@ -11,13 +11,13 @@ class NewVisitorTest(StaticLiveServerTestCase):
             if 'liveserver' in arg:
                 cls.server_url = 'http://' + arg.split('=')[1]
                 return
-        StaticLiveServerTestCase.setUpClass()
+        super().setUpClass()
         cls.server_url = cls.live_server_url
 
     @classmethod
     def tearDownClass(cls):
         if cls.server_url == cls.live_server_url:
-            StaticLiveServerTestCase.tearDownClass()
+            super().tearDownClass()
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -59,7 +59,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # lists "1: Buy peacock feathers" as an item in a to-do list.
         inputbox.send_keys(Keys.ENTER)
         edith_list_url = self.browser.current_url
-        self.assertRegexpMatches(edith_list_url, '/lists/.+')
+        self.assertRegex(edith_list_url, '/lists/.+')
         self.check_for_row_in_list_table('1: Buy peacock feathers')
 
         # There is still a text box inviting her to add another item. She enters "Use
@@ -93,7 +93,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         # Francis gets his own unique URL.
         francis_list_url = self.browser.current_url
-        self.assertRegexpMatches(francis_list_url, '/lists/.+')
+        self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edith_list_url)
 
         # Again, there is no trace of Edith's list.
